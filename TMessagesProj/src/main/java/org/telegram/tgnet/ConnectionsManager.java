@@ -488,9 +488,9 @@ public class ConnectionsManager extends BaseController {
     public static void onConnectionStateChanged(final int state, final int currentAccount) {
         AndroidUtilities.runOnUIThread(() -> {
             getInstance(currentAccount).connectionState = state;
+            ProxySwitcher.didReceivedNotification(state);
             AccountInstance.getInstance(currentAccount).getNotificationCenter().postNotificationName(NotificationCenter.didUpdateConnectionState);
         });
-        ProxySwitcher.didReceivedNotification(state);
     }
 
     public static void onLogout(final int currentAccount) {
